@@ -11,7 +11,7 @@ k6 can stream every metric to an external backend as the test runs, instead of o
 Run [`k6-test.js`](./k6-test.js) with the `--out experimental-prometheus-rw` option, and `K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true` to send `http_req_duration` (and every other Trend metric) as a [Prometheus native histogram](https://prometheus.io/docs/specs/native_histograms/) instead of a handful of pre-picked percentiles:
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw 8.test-result-visualization/k6-test.js
+K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw 08.test-result-visualization/k6-test.js
 ```
 
 k6 pushes every metric (`http_req_duration`, `http_reqs`, `vus`, `checks`, all of it) to Prometheus in real time over the [Prometheus remote-write protocol](https://grafana.com/docs/k6/latest/results-output/real-time/prometheus-remote-write/), rather than holding everything until the run ends.
@@ -47,7 +47,7 @@ The dashboard's panels are really just k6's built-in metrics, queried and charte
 
 - **`http_reqs`**: total number of HTTP requests k6 made. The dashboard's "HTTP requests" and "Peak RPS" panels are this, summed and rated.
 - **`http_req_duration`**: how long each request took, end to end. Latency distributions are rarely symmetric (a handful of very slow requests hide behind a healthy-looking average), so the "HTTP Request Duration" panel plots a percentile (any value you type into the dashboard's **Trend Metrics Query** field, since it's a native histogram) rather than a single number.
-- **`http_req_failed`**: the proportion of requests k6 considers failed (non-2xx/3xx by default). This is the exact metric [lab 4](../4.assertions/)'s threshold gates on.
+- **`http_req_failed`**: the proportion of requests k6 considers failed (non-2xx/3xx by default). This is the exact metric [lab 4](../04.assertions/)'s threshold gates on.
 - **`vus`** / **`vus_max`**: virtual users actually active vs. provisioned. Useful for spotting when a ramp-up doesn't reach the target you expected, e.g. because the target under test is rejecting connections.
 - **`iterations`**: how many times the default function ran, start to finish. Compare against `http_reqs` to see how many requests each iteration makes.
 - **`checks`**: pass/fail counts for every `check()` in the script, same as what you've seen printed in the terminal all along, just now over time instead of as a single end-of-run total.
@@ -101,4 +101,4 @@ Paste any of these into Explore (or a new panel's query editor) while `k6-test.j
 
 ---
 
-[← Previous exercise](../7.test-recorders/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../9.observing-the-sut/)
+[← Previous exercise](../07.test-recorders/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../09.observing-the-sut/)

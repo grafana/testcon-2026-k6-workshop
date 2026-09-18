@@ -81,4 +81,4 @@ If you have extra time, try setting `vus` above 100 and see what changes when VU
 
 ---
 
-[← Previous exercise](../4.assertions/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../6.test-suite-and-ci-integration/)
+[← Previous exercise](../04.assertions/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../06.test-suite-and-ci-integration/)

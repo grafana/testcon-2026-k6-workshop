@@ -20,7 +20,7 @@ Run [`browser-test.js`](./browser-test.js):
 k6 run browser-test.js
 ```
 
-It loads QuickPizza's homepage, clicks "Pizza, Please!", and checks that a recommendation renders. You didn't have to hand-write this: [k6 Studio](../7.test-recorders/) can record a real browser session and generate a script like this one for you. Try that if you'd rather build it that way.
+It loads QuickPizza's homepage, clicks "Pizza, Please!", and checks that a recommendation renders. You didn't have to hand-write this: [k6 Studio](../07.test-recorders/) can record a real browser session and generate a script like this one for you. Try that if you'd rather build it that way.
 
 Look at the **WEB_VITALS** block in the terminal summary. These are [Core Web Vitals](https://web.dev/articles/vitals), collected automatically from that one page load, with no extra instrumentation:
 
@@ -66,7 +66,7 @@ Stuck, or want to check your version against a working one? [`answer/browser-tes
 
 ## Part 3: Turn it into a hybrid test
 
-Add a second scenario to `browser-test.js` that generates backend load on the same endpoint the UI itself calls, reusing [lab 8](../8.test-result-visualization/)'s `POST /api/pizza` request.
+Add a second scenario to `browser-test.js` that generates backend load on the same endpoint the UI itself calls, reusing [lab 8](../08.test-result-visualization/)'s `POST /api/pizza` request.
 
 Wire it up as a `backend_load` scenario alongside `browser_ux` in `options.scenarios`, using a `ramping-vus` executor to build up load (up to 50 VUs, say). Delay `browser_ux`'s `startTime` until `backend_load` has ramped up, so you're measuring the site already under load, not a cold start. Keep the browser VU count small; 10% or less of the protocol-level one is a good rule of thumb, since a browser VU costs far more than an HTTP one.
 

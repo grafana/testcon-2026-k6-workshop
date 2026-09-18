@@ -118,4 +118,4 @@ Correlate the `CSRF` token using the **Test rules** option:
 
 ---
 
-[← Previous exercise](../6.test-suite-and-ci-integration/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../8.test-result-visualization/)
+[← Previous exercise](../06.test-suite-and-ci-integration/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../08.test-result-visualization/)

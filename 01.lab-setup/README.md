@@ -92,4 +92,4 @@ The following diagram shows the Docker Compose architecture used in this worksho
 
 ---
 
-[Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../2.basic-load-test/)
+[Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../02.basic-load-test/)

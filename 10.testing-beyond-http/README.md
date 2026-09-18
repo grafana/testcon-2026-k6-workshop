@@ -2,7 +2,7 @@
 
 _**Need help?** Raise your hand and we'll come help._
 
-Every test so far has sent HTTP requests. Real systems have more surface than that: QuickPizza also talks over WebSocket, and stores everything directly in PostgreSQL. This lab covers three more k6 techniques: load testing a WebSocket connection, load testing a database directly, and reporting a custom metric for something neither one gives you for free. It closes the way [lab 8](../8.test-result-visualization/) did, with Grafana Assistant building a dashboard for the results.
+Every test so far has sent HTTP requests. Real systems have more surface than that: QuickPizza also talks over WebSocket, and stores everything directly in PostgreSQL. This lab covers three more k6 techniques: load testing a WebSocket connection, load testing a database directly, and reporting a custom metric for something neither one gives you for free. It closes the way [lab 8](../08.test-result-visualization/) did, with Grafana Assistant building a dashboard for the results.
 
 ## Part 1: Load test a WebSocket connection
 
@@ -29,7 +29,7 @@ Both checks should pass 100% of the time. `ws-test.js` has comments explaining t
 
 One result is worth clarifying before you look at it: `iteration_duration` sits around 1 second, even though the actual round trip (connect, send and ping, receive the broadcast and the pong, close) only takes a few milliseconds. Each iteration's `sleep(1)` runs first and blocks for a full second before the socket even opens. WebSocket calls are async callbacks, so k6 runs the synchronous `sleep()` immediately and only afterward works through `open`, `message`, `pong`, and `close`. The iteration finishes once that final `close` fires with nothing left scheduled, so sleep happens first, but closing the connection is what actually ends the iteration.
 
-k6's built-in WebSocket metrics land in Prometheus the same way HTTP ones do: `k6_ws_sessions_total`, `k6_ws_msgs_sent_total`, `k6_ws_msgs_received_total`, `k6_ws_connecting`, `k6_ws_session_duration`, `k6_ws_ping`. Query them in **Explore** or **Drilldown → Metrics** exactly like `k6_http_req_duration` in [lab 8](../8.test-result-visualization/).
+k6's built-in WebSocket metrics land in Prometheus the same way HTTP ones do: `k6_ws_sessions_total`, `k6_ws_msgs_sent_total`, `k6_ws_msgs_received_total`, `k6_ws_connecting`, `k6_ws_session_duration`, `k6_ws_ping`. Query them in **Explore** or **Drilldown → Metrics** exactly like `k6_http_req_duration` in [lab 8](../08.test-result-visualization/).
 
 ### Try it yourself
 
@@ -137,4 +137,4 @@ Finally, edit any panel to explore the underlying k6 and `pg_stat_statements` me
 
 ---
 
-[← Previous exercise](../9.observing-the-sut/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../11.hybrid-performance-testing/)
+[← Previous exercise](../09.observing-the-sut/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../11.hybrid-performance-testing/)

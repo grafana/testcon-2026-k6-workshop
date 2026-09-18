@@ -5,15 +5,15 @@
 ## Hands-on lab agenda
 
 - Introduction: 5m
-- [Lab setup](./1.lab-setup/): 10m
-- [First load test](./2.basic-load-test/): 20m
-- [Workload in request rate](./3.workload-in-rps/): 20m
-- [Assertions](./4.assertions/): 20m
-- [Parameterize test data](./5.parameterized-data/): 20m
-- [Test suite structure & CI/CD integration](./6.test-suite-and-ci-integration/): 25m
-- [Test recorders](./7.test-recorders/): 25m
-- [Store and visualize test results](./8.test-result-visualization/): 25m
-- [Observe the system under test with Grafana](./9.observing-the-sut/): 40m
+- [Lab setup](./01.lab-setup/): 10m
+- [First load test](./02.basic-load-test/): 20m
+- [Workload in request rate](./03.workload-in-rps/): 20m
+- [Assertions](./04.assertions/): 20m
+- [Parameterize test data](./05.parameterized-data/): 20m
+- [Test suite structure & CI/CD integration](./06.test-suite-and-ci-integration/): 25m
+- [Test recorders](./07.test-recorders/): 25m
+- [Store and visualize test results](./08.test-result-visualization/): 25m
+- [Observe the system under test with Grafana](./09.observing-the-sut/): 40m
 - [Testing beyond HTTP](./10.testing-beyond-http/): 35m
 - [Hybrid performance testing](./11.hybrid-performance-testing/): 25m
 - k6 Ecosystem Overview: 20m

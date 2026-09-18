@@ -35,7 +35,7 @@ export function orderPizza(baseUrl) {
 Now create two entry scripts under `scripts/tests/` that both import `orderPizza`, but each define their own `options`:
 
 ```
-6.test-suite-and-ci-integration/
+06.test-suite-and-ci-integration/
   scripts/
     lib/
       order-pizza-scenario.js   # the shared flow: login + order a pizza
@@ -141,8 +141,8 @@ jobs:
       - uses: grafana/run-k6-action@v1
         with:
           path: |
-            6.test-suite-and-ci-integration/answer/tests/standard-load-test.js
-            6.test-suite-and-ci-integration/answer/tests/peak-traffic-test.js
+            06.test-suite-and-ci-integration/answer/tests/standard-load-test.js
+            06.test-suite-and-ci-integration/answer/tests/peak-traffic-test.js
           parallel: true
           flags: -e BASE_URL=https://quickpizza.grafana.com
 ```
@@ -152,7 +152,7 @@ A couple of things to notice:
 - It runs on version tags, not every push. `on.push.tags: ["v*"]` fires only when you push a tag like `v1.2.0`, the moment you're cutting a release, not every commit to a branch. `workflow_dispatch` adds a manual "Run workflow" button in the Actions tab, for whenever you want the full suite without waiting for a tag.
 - It targets `answer/`, not `scripts/`. `scripts/lib/` and `scripts/tests/` are your own workspace and gitignored, so they're never committed. Pointing CI there would fail on a fresh clone or fork with nothing to run.
 - The workflow overrides `BASE_URL` to point at the public `https://quickpizza.grafana.com` demo instead of `localhost`, since the CI runner doesn't have your local Docker Compose stack running.
-- Thresholds gate the pipeline. Each test's `http_req_failed: ["rate<0.01"]` threshold makes `k6 run` exit non-zero on a breach, same as [lab 4](../4.assertions/), except now it turns the GitHub Actions job red instead of just failing in your terminal.
+- Thresholds gate the pipeline. Each test's `http_req_failed: ["rate<0.01"]` threshold makes `k6 run` exit non-zero on a breach, same as [lab 4](../04.assertions/), except now it turns the GitHub Actions job red instead of just failing in your terminal.
 
 If you also want fast, per-PR feedback, that's a different, smaller job: a short smoke test (one or a few iterations) triggered `on: pull_request`, checking the tests and app still respond correctly. Not a substitute for the pre-release performance test, just a sanity check.
 
@@ -176,4 +176,4 @@ If you have extra time, add an `http_req_duration` threshold to one of the tests
 
 ---
 
-[← Previous exercise](../5.parameterized-data/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../7.test-recorders/)
+[← Previous exercise](../05.parameterized-data/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../07.test-recorders/)

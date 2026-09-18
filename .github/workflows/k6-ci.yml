@@ -15,7 +15,7 @@ jobs:
       - uses: grafana/run-k6-action@v1
         with:
           path: |
-            6.test-suite-and-ci-integration/answer/tests/standard-load-test.js
-            6.test-suite-and-ci-integration/answer/tests/peak-traffic-test.js
+            06.test-suite-and-ci-integration/answer/tests/standard-load-test.js
+            06.test-suite-and-ci-integration/answer/tests/peak-traffic-test.js
           parallel: true
           flags: -e BASE_URL=https://quickpizza.grafana.com

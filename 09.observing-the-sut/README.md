@@ -8,7 +8,7 @@ So far, a test told you pass or fail: a threshold breached, a check failed, an e
 
 ### Turn on failure injection
 
-Uncomment these two lines under the `quickpizza` service in [`compose.yaml`](../compose.yaml). Same failure-injection technique as [lab 4](../4.assertions/), used here for a different reason: not to test a threshold, but to have something real to go find.
+Uncomment these two lines under the `quickpizza` service in [`compose.yaml`](../compose.yaml). Same failure-injection technique as [lab 4](../04.assertions/), used here for a different reason: not to test a threshold, but to have something real to go find.
 
 ```yaml
 QUICKPIZZA_DELAY_RECOMMENDATIONS: "1s"
@@ -23,10 +23,10 @@ docker compose up -d quickpizza
 
 ### Generate at least 2 minutes of load
 
-Reuse [lab 8](../8.test-result-visualization/)'s `k6-test.js`. It already posts to `/api/pizza`, the endpoint you just tampered with. Send results to Prometheus so there's something to look at:
+Reuse [lab 8](../08.test-result-visualization/)'s `k6-test.js`. It already posts to `/api/pizza`, the endpoint you just tampered with. Send results to Prometheus so there's something to look at:
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=sut-check-1 --vus 10 --duration 2m 8.test-result-visualization/k6-test.js
+K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=sut-check-1 --vus 10 --duration 2m 08.test-result-visualization/k6-test.js
 ```
 
 From the test's own summary, you already know something's off: `checks_failed` sitting around 4-5%, average latency jumping to ~1.1s. That's the extent of what a test tells you on its own. Everything from here is about finding out why, in Grafana, not by guessing.
@@ -125,4 +125,4 @@ Telemetry narrowed the search to one handler and one roughly 1-second window. Th
 
 ---
 
-[← Previous exercise](../8.test-result-visualization/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../10.testing-beyond-http/)
+[← Previous exercise](../08.test-result-visualization/) · [Workshop homepage](https://github.com/grafana/testcon-2026-k6-workshop) · [Next exercise →](../10.testing-beyond-http/)
