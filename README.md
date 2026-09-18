@@ -28,9 +28,10 @@ _**Need help?** Raise your hand and we'll come help._
 ## What you will learn
 
 By the end of this workshop, you will learn the fundamentals of load testing and have built:
-- API performance tests with meaningful thresholds and assertions
-- Grafana dashboards to visualize test results and understand how the system behaves under a heavy load.
+- API performance tests with meaningful thresholds and assertions, using realistic, parameterized test data
+- A modular test suite wired into a CI/CD pipeline with GitHub Actions
 - k6 tests automatically generated using k6 Studio
+- Grafana dashboards to visualize test results, and how to observe a system under test with metrics, logs, traces, and Grafana Assistant
 - Load tests for SQL databases and WebSocket connections, plus custom k6 metrics
 - Hybrid tests that correlate real browser performance (Web Vitals) with backend load
 
