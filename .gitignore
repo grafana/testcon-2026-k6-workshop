@@ -1,0 +1,16 @@
+# 8.ci-cd-integration/scripts is the exercise's own workspace: readers fill
+# it in themselves, so its files are never committed (answer/ holds the
+# finished version) - but the folders stay, via tracked .gitkeep placeholders.
+8.ci-cd-integration/scripts/lib/*
+8.ci-cd-integration/scripts/tests/*
+!8.ci-cd-integration/scripts/lib/.gitkeep
+!8.ci-cd-integration/scripts/tests/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

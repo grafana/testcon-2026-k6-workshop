@@ -1,0 +1,21 @@
+name: k6 pre-release load test
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: grafana/setup-k6-action@v1
+      - uses: grafana/run-k6-action@v1
+        with:
+          path: |
+            06.test-suite-and-ci-integration/answer/tests/standard-load-test.js
+            06.test-suite-and-ci-integration/answer/tests/peak-traffic-test.js
+          parallel: true
+          flags: -e BASE_URL=https://quickpizza.grafana.com
