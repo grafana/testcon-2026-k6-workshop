@@ -133,7 +133,7 @@ services:
       - prometheus
 
   grafana:
-    image: grafana/grafana:13.1.0
+    image: grafana/grafana:13.2.3
     container_name: grafana
     labels:
       - "service.type=instrumentation"
