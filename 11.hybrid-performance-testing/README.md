@@ -17,7 +17,7 @@ k6's [`browser`](https://grafana.com/docs/k6/latest/javascript-api/k6-browser/) 
 Run [`browser-test.js`](./browser-test.js):
 
 ```bash
-k6 run browser-test.js
+k6 run 11.hybrid-performance-testing/browser-test.js
 ```
 
 It loads QuickPizza's homepage, clicks "Pizza, Please!", and checks that a recommendation renders. You didn't have to hand-write this: [k6 Studio](../07.test-recorders/) can record a real browser session and generate a script like this one for you. Try that if you'd rather build it that way.
@@ -73,7 +73,7 @@ Wire it up as a `backend_load` scenario alongside `browser_ux` in `options.scena
 Run it, sending results to Prometheus so you can compare them in Grafana afterward:
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw hybrid-test.js
+K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw 11.hybrid-performance-testing/hybrid-test.js
 ```
 
 Stuck? [`answer/hybrid-test.js`](./answer/hybrid-test.js) has the complete solution.

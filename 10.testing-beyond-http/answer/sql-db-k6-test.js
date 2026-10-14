@@ -11,7 +11,8 @@ import { check } from "k6";
 import { Trend } from "k6/metrics";
 import { randomIntBetween } from "https://jslib.k6.io/k6-utils/1.2.0/index.js";
 
-const db = sql.open(driver, "postgres://postgres:postgres@localhost:5432/quickpizza_db?sslmode=disable");
+const DB_URL = __ENV.DB_URL || "postgres://postgres:postgres@localhost:5432/quickpizza_db?sslmode=disable";
+const db = sql.open(driver, DB_URL);
 
 // xk6-sql doesn't report query timing the way http auto-reports http_req_duration,
 // so this custom Trend fills that gap. `true` marks it as a time value (ms).

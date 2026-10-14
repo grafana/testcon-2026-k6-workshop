@@ -155,6 +155,8 @@ services:
       - "service.type=load-generator"
     environment:
       BASE_URL: http://quickpizza:3333
+      DB_URL: postgres://postgres:postgres@quickpizza-db:5432/quickpizza_db?sslmode=disable
+      K6_PROMETHEUS_RW_SERVER_URL: http://prometheus:9090/api/v1/write
     volumes:
       - ".:/scripts:Z"
     working_dir: /scripts
