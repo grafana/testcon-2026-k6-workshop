@@ -7,7 +7,6 @@ In this workshop, you'll learn how to create load tests to verify the performanc
 QuickPizza is available in three environments:
 - [localhost:3333](http://localhost:3333/): a local environment that runs with Docker.
 - [quickpizza.grafana.com](https://quickpizza.grafana.com/): a shared test environment for small-scale load tests.
-- [quickpizza.grafana.fun](https://quickpizza.grafana.fun/): a shared test environment for small-scale load tests that also lets you visualize results in [Grafana Play](https://play.grafana.org/).
 
 ## Installation steps
 
