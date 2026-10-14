@@ -30,13 +30,13 @@ Run the test again with the same command as above. The panels update live as k6 
 📌 Running the same test repeatedly reuses the same series, so runs blend together on the dashboard. Tag each run with a distinct `testid` to tell them apart, and run it 2 or 3 times, at least `--vus 50` for `--duration 30s`, enough concurrency and time for a stable, comparable picture on the dashboard:
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=run-1 --vus 50 --duration 30s k6-test.js
+K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=run-1 --vus 50 --duration 30s 08.test-result-visualization/k6-test.js
 ```
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=run-2 --vus 50 --duration 30s k6-test.js
+K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=run-2 --vus 50 --duration 30s 08.test-result-visualization/k6-test.js
 ```
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=run-3 --vus 50 --duration 30s k6-test.js
+K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=run-3 --vus 50 --duration 30s 08.test-result-visualization/k6-test.js
 ```
 
 The dashboard's **Test ID** dropdown supports selecting one, several, or "All". Pick two or three of your runs at once and compare them side by side on the same panels. Its **Trend Metrics Query** field takes any quantile between 0 and 1 (0.5, 0.9, 0.95, 0.99, ...); type in a few different values and watch the "HTTP Request Duration" panel change, without having to re-run the test to get that quantile in the first place.
@@ -57,6 +57,8 @@ The dashboard's panels are really just k6's built-in metrics, queried and charte
 The prebuilt dashboard is generic. It doesn't know which metrics matter most for your test, or that you're comparing tagged runs.
 
 In this section, we'll try [Grafana Assistant](http://localhost:3000/plugins/grafana-assistant-app) to build a new dashboard for k6 results.
+
+Grafana Assistant doesn't work for anonymous users. First, [sign in to Grafana](http://localhost:3000/login) with `admin` / `admin`, and click **Skip** when asked to change the password.
 
 Grafana Assistant needs a connection to Grafana Cloud even for a self-managed instance like this one (requires a free Grafana Cloud account, see [Enable Assistant in Grafana OSS](https://grafana.com/docs/grafana-cloud/machine-learning/assistant/get-started/self-managed/) for the full setup). Connect this instance from its [Connection settings](http://localhost:3000/plugins/grafana-assistant-app?page=connection):
 

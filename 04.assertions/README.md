@@ -11,7 +11,7 @@ One approach is to gradually increase load until the system starts failing. For 
 Uncomment the following lines in [compose.yaml](../compose.yaml):
 
 ```yml
-      # QUICKPIZZA_DELAY_RECOMMENDATIONS: 1000
+      # QUICKPIZZA_DELAY_RECOMMENDATIONS: "1s"
       # QUICKPIZZA_FAIL_RATE_RECOMMENDATIONS_API_PIZZA_POST: 5
 ```
 
@@ -26,7 +26,7 @@ QuickPizza now returns occasional errors and slower responses.
 To make the code fault-tolerant, wrap up the `console.log` statement as follows:
 
 ```js
-if (res === 200) {
+if (res.status === 200) {
     console.log(
       `${res.json().pizza.name} (${res.json().pizza.ingredients.length} ingredients)`,
     );
@@ -57,15 +57,15 @@ Verify the output in the terminal:
 default ✓ [======================================] 00/50 VUs  10s  30.00 iters/s
 ```
 
-Now, add a [k6 threshold](https://grafana.com/docs/k6/latest/using-k6/thresholds/) to verify that at least 95% of responses complete in under 1 second. 
+Now, add a [k6 threshold](https://grafana.com/docs/k6/latest/using-k6/thresholds/) to verify that at least 95% of responses complete in under 1 second.
 
 The [`http_req_duration`](https://grafana.com/docs/k6/latest/using-k6/metrics/reference/#http) reports the total server request duration, so the threshold should be like:
 
 ```js
-http_req_duration: ['p(95)<1000'], 
+http_req_duration: ['p(95)<1000'],
 ```
 
-Configure the threshold and run the test again. 
+Configure the threshold and run the test again.
 
 After the test finishes, check the `http_req_duration` results. The test should fail:
 
@@ -73,7 +73,7 @@ After the test finishes, check the `http_req_duration` results. The test should 
 ...
 http_req_duration..............: avg=1.13s min=1s med=1.1s max=1.65s p(90)=1.26s p(95)=1.34s
 ...
-ERRO[0011] thresholds on metrics 'http_req_duration' have been crossed 
+ERRO[0011] thresholds on metrics 'http_req_duration' have been crossed
 ```
 
 📌 Unlike checks, thresholds affect the test result. When a threshold is crossed, k6 returns a non-zero exit code, allowing you to verify performance criteria with load tests in your CI/CD pipelines.

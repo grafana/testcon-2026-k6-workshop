@@ -28,8 +28,8 @@ export const options = {
       exec: "generateBackendLoad",
       executor: "ramping-vus",
       stages: [
-        { duration: "10s", target: 5 },
-        { duration: "40s", target: 5 },
+        { duration: "10s", target: 50 },
+        { duration: "40s", target: 50 },
         { duration: "10s", target: 0 },
       ],
     },

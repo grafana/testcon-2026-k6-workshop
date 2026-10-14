@@ -12,7 +12,7 @@ Open [`k6-test.js`](./k6-test.js). It logs in as the built-in `default` user and
 Run it with 50 VUs:
 
 ```bash
-k6 run k6-test.js
+k6 run 05.parameterized-data/k6-test.js
 ```
 
 Every VU logs in and requests a pizza as the exact same `default` account. That's not how real traffic looks: 50 concurrent users means 50 distinct accounts.

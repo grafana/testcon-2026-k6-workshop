@@ -99,7 +99,7 @@ Once Drilldown gets you to something specific, a `traceID` from a log line, an e
 
 Everything so far, metrics then logs then traces, was you deciding what to look at next. [Grafana Assistant](http://localhost:3000/plugins/grafana-assistant-app) can run that same investigation itself: given a symptom, it queries the right datasources, compares a failing trace against a successful one, and comes back with a root cause.
 
-> In the quickpizza service, Pizza requests have been failing with 503 errors and higher latency over the last 15 minutes. Investigate the root cause. 
+> In the quickpizza service, Pizza requests have been failing with 503 errors and higher latency over the last 15 minutes. Investigate the root cause.
 
 Assistant works through this the same way you just did by hand: it checks `quickpizza_server_http_requests_total` and the request-duration histogram in Prometheus to confirm the error and latency pattern, pulls matching logs and traces from Loki and Tempo, and diagrams the request flow it found in `POST /api/pizza`. It lands on essentially the same finding, an unattributed gap of about a second inside the pizza/name-generation step right before the 503s, without ever claiming to know why that gap exists.
 
@@ -107,7 +107,7 @@ Drilldown and Explore get you to the evidence. Assistant assembles it into a sto
 
 ### Go further: connect the QuickPizza codebase
 
-Assistant's finding stops at "an unattributed gap." That's the limit of what telemetry alone can say: a hypothesis about the code, made without ever seeing the code. Give it a way in and it can read the code directly. Open **Assistant → Settings**, search for "GitHub", and install the GitHub MCP server, scoped to the `grafana/quickpizza` repository.
+Assistant's finding stops at "an unattributed gap." That's the limit of what telemetry alone can say: a hypothesis about the code, made without ever seeing the code. Give it a way in and it can read the code directly. Open **Assistant → Settings → MCP servers**, search for "GitHub", and install the GitHub MCP server, scoped to the `grafana/quickpizza` repository.
 
 With that connected, ask Assistant to go from symptom to source:
 

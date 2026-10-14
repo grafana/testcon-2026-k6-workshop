@@ -15,7 +15,8 @@ import { WebSocket } from "k6/websockets";
 import { setTimeout, clearTimeout } from "k6/timers";
 import { check, sleep } from "k6";
 
-const WS_URL = "ws://localhost:3333/ws";
+const BASE_URL = __ENV.BASE_URL || "http://localhost:3333";
+const WS_URL = `${BASE_URL.replace(/^http/, "ws")}/ws`;
 
 export const options = {
   vus: 20,

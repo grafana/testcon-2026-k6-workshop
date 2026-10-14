@@ -74,13 +74,13 @@ One module, two concurrency levels. The flow you're testing and the load you're 
 k6 resolves that `../lib/order-pizza-scenario.js` import itself at run time, so there's no build step involved: no `npm install`, no bundler. Run either test exactly like every other script so far in this workshop:
 
 ```bash
-k6 run scripts/tests/standard-load-test.js
+k6 run 06.test-suite-and-ci-integration/scripts/tests/standard-load-test.js
 ```
 
 CLI flags also take priority over whatever `options` sets in the script, so you can override the load for a one-off run without editing the file:
 
 ```bash
-k6 run --vus 5 --duration 10s scripts/tests/standard-load-test.js
+k6 run --vus 5 --duration 10s 06.test-suite-and-ci-integration/scripts/tests/standard-load-test.js
 ```
 
 This replaces the script's `stages` entirely. Instead of ramping up, holding, and ramping down, it runs a flat 5 VUs for 10 seconds. Handy for a quick smoke check before committing to the full ramp.
