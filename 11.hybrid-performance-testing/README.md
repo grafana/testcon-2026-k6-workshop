@@ -66,22 +66,24 @@ Stuck, or want to check your version against a working one? [`answer/browser-tes
 
 ## Part 3: Turn it into a hybrid test
 
-Add a second scenario to `browser-test.js` that generates backend load on the same endpoint the UI itself calls, reusing [lab 8](../08.test-result-visualization/)'s `POST /api/pizza` request.
+Copy `browser-test.js` to a new `hybrid-test.js`, then add a second scenario to it that generates backend load on the same endpoint the UI itself calls, reusing [lab 8](../08.test-result-visualization/)'s `POST /api/pizza` request.
 
 Wire it up as a `backend_load` scenario alongside `browser_ux` in `options.scenarios`, using a `ramping-vus` executor to build up load (up to 50 VUs, say). Delay `browser_ux`'s `startTime` until `backend_load` has ramped up, so you're measuring the site already under load, not a cold start. Keep the browser VU count small; 10% or less of the protocol-level one is a good rule of thumb, since a browser VU costs far more than an HTTP one.
 
-Run it:
+Run it, sending results to Prometheus so you can compare them in Grafana afterward:
 
 ```bash
-k6 run hybrid-test.js
+K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw hybrid-test.js
 ```
+
+Stuck? [`answer/hybrid-test.js`](./answer/hybrid-test.js) has the complete solution.
 
 Then check either signal against your Part 1/2 baseline:
 
 - **User experience**: does `"recommendation rendered"` still pass 100% of the time under load?
 - **Performance**: does `pizza_recommendation_time`, the custom metric from Part 2, move compared to the baseline you measured with no backend load at all? It's the most direct signal here, since the click that starts it fires the exact same `POST /api/pizza` call `backend_load` is hammering concurrently.
 
-k6's browser metrics land in Prometheus the same way everything else in this workshop has: `k6_pizza_recommendation_time_p99`, `k6_browser_web_vital_lcp_p99`, and so on. Query them in **Explore** or **Drilldown → Metrics** right alongside `backend_load`'s own `k6_http_req_duration`.
+k6's browser metrics land in Prometheus the same way everything else in this workshop has: `k6_pizza_recommendation_time_seconds`, `k6_browser_web_vital_lcp_seconds`, and so on. Query them in **Explore** or **Drilldown → Metrics** right alongside `backend_load`'s own `k6_http_req_duration_seconds`.
 
 ### Try it yourself
 

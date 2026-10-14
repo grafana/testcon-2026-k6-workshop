@@ -29,7 +29,7 @@ Both checks should pass 100% of the time. `ws-test.js` has comments explaining t
 
 One result is worth clarifying before you look at it: `iteration_duration` sits around 1 second, even though the actual round trip (connect, send and ping, receive the broadcast and the pong, close) only takes a few milliseconds. Each iteration's `sleep(1)` runs first and blocks for a full second before the socket even opens. WebSocket calls are async callbacks, so k6 runs the synchronous `sleep()` immediately and only afterward works through `open`, `message`, `pong`, and `close`. The iteration finishes once that final `close` fires with nothing left scheduled, so sleep happens first, but closing the connection is what actually ends the iteration.
 
-k6's built-in WebSocket metrics land in Prometheus the same way HTTP ones do: `k6_ws_sessions_total`, `k6_ws_msgs_sent_total`, `k6_ws_msgs_received_total`, `k6_ws_connecting`, `k6_ws_session_duration`, `k6_ws_ping`. Query them in **Explore** or **Drilldown → Metrics** exactly like `k6_http_req_duration` in [lab 8](../08.test-result-visualization/).
+k6's built-in WebSocket metrics land in Prometheus the same way HTTP ones do: `k6_ws_sessions_total`, `k6_ws_msgs_sent_total`, `k6_ws_msgs_received_total`, `k6_ws_connecting_seconds`, `k6_ws_session_duration_seconds`, `k6_ws_ping_seconds`. Query them in **Explore** or **Drilldown → Metrics** exactly like `k6_http_req_duration_seconds` in [lab 8](../08.test-result-visualization/).
 
 ### Try it yourself
 
@@ -39,7 +39,7 @@ The intro asked whether the broadcast holds up as more visitors stay connected a
 K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw ws-test.js
 ```
 
-Both checks should still pass 100% of the time. Compare `k6_ws_ping` latency between runs: that's the server's actual responsiveness under load, not just a message count.
+Both checks should still pass 100% of the time. Compare `k6_ws_ping_seconds` latency between runs: that's the server's actual responsiveness under load, not just a message count.
 
 ## Part 2: Load test a database directly
 
@@ -93,10 +93,10 @@ export function listIngredients() {
 
 Do the same for `getPizza` and `insertRating`, each tagging the metric with its own `query` value.
 
-Run the same command as Part 2 again. `db_query_duration` now shows up in the terminal summary under **CUSTOM**, right alongside k6's own built-in metrics. Sent to Prometheus, it becomes `k6_db_query_duration_p99` (and every other percentile you ask for), broken out by the `query` tag:
+Run the same command as Part 2 again. `db_query_duration` now shows up in the terminal summary under **CUSTOM**, right alongside k6's own built-in metrics. Sent to Prometheus as a native histogram, it becomes `k6_db_query_duration_seconds`, so you can ask for any percentile, broken out by the `query` tag:
 
 ```promql
-k6_db_query_duration_p99{query="get_pizza"}
+histogram_quantile(0.99, sum by (query) (rate(k6_db_query_duration_seconds{query="get_pizza"}[$__rate_interval])))
 ```
 
 A custom metric behaves exactly like a built-in one everywhere downstream: same terminal summary, same Prometheus series naming, same tags. The only extra work is the two lines that create it and add a value. k6, and Grafana, don't care whether a metric shipped with k6 or came from your own script.

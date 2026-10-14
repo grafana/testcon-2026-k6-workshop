@@ -58,6 +58,8 @@ The prebuilt dashboard is generic. It doesn't know which metrics matter most for
 
 In this section, we'll try [Grafana Assistant](http://localhost:3000/plugins/grafana-assistant-app) to build a new dashboard for k6 results.
 
+Grafana Assistant doesn't work for anonymous users. First, [sign in to Grafana](http://localhost:3000/login) with `admin` / `admin`, and click **Skip** when asked to change the password.
+
 Grafana Assistant needs a connection to Grafana Cloud even for a self-managed instance like this one (requires a free Grafana Cloud account, see [Enable Assistant in Grafana OSS](https://grafana.com/docs/grafana-cloud/machine-learning/assistant/get-started/self-managed/) for the full setup). Connect this instance from its [Connection settings](http://localhost:3000/plugins/grafana-assistant-app?page=connection):
 
 <img src="./images/screenshot-connect-grafana-assistant-to-grafana-cloud.png" alt="Grafana Assistant connection settings, with a Connect to Grafana Cloud button" width="600" />

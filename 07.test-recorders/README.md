@@ -31,20 +31,21 @@ Fully quit the application and open it again. That usually clears it.
 **Step 2: Create a test from the recording**
 
 1. Click **Create test > HTTP test** to generate a k6 script from the captured HTTP requests.
-2. Select **only** `quickpizza.grafana.com` as the allowed host. This keeps the test focused on our system and excludes third-party resources.
+2. Click **Open generator**
+3. Select **only** `quickpizza.grafana.com` as the allowed host. This keeps the test focused on our system and excludes third-party resources.
 
    <img src="./images/filter-hosts.png" alt="Record flow dialog" width="600" />
 
-3. Click **Continue**.
+4. Click **Continue**.
 
-**Step3: Review recorded requests and generated script** 
+**Step3: Review recorded requests and generated script**
 
 1. On the **Requests** tab, review the recorded requests.
 2. Click **Script** to review the generated k6 script.
 
 You can now export or copy the script and run it like any other k6 test.
 
-**Step4: Correlate data between requests** 
+**Step4: Correlate data between requests**
 
 In this exercise, you'll implement request correlation for the `CSRF_TOKEN` used during login.
 
@@ -52,7 +53,7 @@ In this exercise, you'll implement request correlation for the `CSRF_TOKEN` used
 
 In k6 Studio, you can implement correlations by using:
 
-- **Grafana Assistant Autocorrelate**: Requires a free Grafana Cloud account (not used in this workshop). 
+- **Grafana Assistant Autocorrelate**: Requires a free Grafana Cloud account (not used in this workshop).
 - **Test rules** configured manually in the UI. These rules are available only in k6 Studio and exist separately from the generated k6 script.
 
 	<img src="./images/k6-studio-correlation.png" alt="Correlation in k6 Studio" width="600" />
@@ -102,7 +103,7 @@ Correlate the `CSRF` token using the **Test rules** option:
 3. Verify how the generated script changes.
 
 4. Now it's your turn. Create another correlation rule to capture the `token` returned by the `/api/users/token/login?set_cookie=true` request.
-	
+
 	The variable `correlation_vars["correlation_1"]` should be assigned in the script and the requests table should look like this:
 
 	<img src="./images/k6-studio-token-correlation.png" alt="Token correlation in k6 Studio" width="450" />
