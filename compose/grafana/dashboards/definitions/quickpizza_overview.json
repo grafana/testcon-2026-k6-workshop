@@ -46,7 +46,7 @@
 					"showLineNumbers": false,
 					"showMiniMap": false
 				},
-				"content": "# Welcome to the QuickPizza SRE Demo!\n\nThis dashboard includes an overview of the architecture, as well as some high level stats about the application.\nIt should serve as an entrypoint to view the health of the system at a quick glance.\n\nYou can try out the application at [quickpizza.grafana.fun](https://quickpizza.grafana.fun/)\n",
+				"content": "# Welcome to the QuickPizza SRE Demo!\n\nThis dashboard includes an overview of the architecture, as well as some high level stats about the application.\nIt should serve as an entrypoint to view the health of the system at a quick glance.\n\nYou can try out the application at [quickpizza.grafana.com](https://quickpizza.grafana.com/)\n",
 				"mode": "markdown"
 			},
 			"pluginVersion": "13.0.1",
