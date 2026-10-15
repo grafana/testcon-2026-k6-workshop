@@ -10,7 +10,7 @@ jobs:
   load-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - uses: grafana/setup-k6-action@v1
       - uses: grafana/run-k6-action@v1
         with:
