@@ -102,7 +102,13 @@ Correlate the `CSRF` token using the **Test rules** option:
 
 3. Verify how the generated script changes.
 
-4. Now it's your turn. Create another correlation rule to capture the `token` returned by the `/api/users/token/login?set_cookie=true` request.
+4. Copy the script code, paste it into your local test file, and run the k6 test.
+
+	```bash
+	k6 run k6-test.js
+	```
+
+5. Now it's your turn. Create another correlation rule to capture the `token` returned by the `/api/users/token/login?set_cookie=true` request.
 
 	The variable `correlation_vars["correlation_1"]` should be assigned in the script and the requests table should look like this:
 
