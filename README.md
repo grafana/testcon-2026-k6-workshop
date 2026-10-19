@@ -18,6 +18,7 @@
 - [Hybrid performance testing](./11.hybrid-performance-testing/): 25m
 - k6 Ecosystem Overview: 20m
 - QA & Lab wrap-up 
+- [k6 Operator](./12.k6-operator/): 15m
 
 ## Facilitators and in-room support staff
 - [Pepe Cano](https://www.linkedin.com/in/ppcano/)
