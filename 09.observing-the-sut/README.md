@@ -26,7 +26,7 @@ docker compose up -d quickpizza
 Reuse [lab 8](../08.test-result-visualization/)'s `k6-test.js`. It already posts to `/api/pizza`, the endpoint you just tampered with. Send results to Prometheus so there's something to look at:
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=sut-check-1 --vus 10 --duration 2m 08.test-result-visualization/k6-test.js
+k6 run --features native-histograms --out experimental-prometheus-rw --tag testid=sut-check-1 --vus 10 --duration 2m 08.test-result-visualization/k6-test.js
 ```
 
 From the test's own summary, you already know something's off: `checks_failed` sitting around 4-5%, average latency jumping to ~1.1s. That's the extent of what a test tells you on its own. Everything from here is about finding out why, in Grafana, not by guessing.
