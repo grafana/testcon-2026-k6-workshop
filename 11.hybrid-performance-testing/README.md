@@ -73,7 +73,7 @@ Wire it up as a `backend_load` scenario alongside `browser_ux` in `options.scena
 Run it, sending results to Prometheus so you can compare them in Grafana afterward:
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw 11.hybrid-performance-testing/hybrid-test.js
+k6 run --features native-histograms --out experimental-prometheus-rw 11.hybrid-performance-testing/hybrid-test.js
 ```
 
 Stuck? [`answer/hybrid-test.js`](./answer/hybrid-test.js) has the complete solution.

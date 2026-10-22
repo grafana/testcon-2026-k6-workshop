@@ -15,7 +15,7 @@ We recommend [`k6/websockets`](https://grafana.com/docs/k6/latest/javascript-api
 Run [`ws-test.js`](./ws-test.js):
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw 10.testing-beyond-http/ws-test.js
+k6 run --features native-histograms --out experimental-prometheus-rw 10.testing-beyond-http/ws-test.js
 ```
 
 Each iteration connects, sends one `new_pizza` event tagged with a unique visitor ID, pings the connection, and checks that both come back before disconnecting:
@@ -36,7 +36,7 @@ k6's built-in WebSocket metrics land in Prometheus the same way HTTP ones do: `k
 The intro asked whether the broadcast holds up as more visitors stay connected at once. Note the `ws_ping` numbers from your first run, then bump `vus` in `ws-test.js` from `20` to `100` and run it again:
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw 10.testing-beyond-http/ws-test.js
+k6 run --features native-histograms --out experimental-prometheus-rw 10.testing-beyond-http/ws-test.js
 ```
 
 Both checks should still pass 100% of the time. Compare `k6_ws_ping_seconds` latency between runs: that's the server's actual responsiveness under load, not just a message count.
@@ -63,7 +63,7 @@ The `teardown()` function runs after the test completes and returns the database
 Run the test with the `--out experimental-prometheus-rw` option to send k6 results to Prometheus.
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw 10.testing-beyond-http/sql-db-k6-test.js
+k6 run --features native-histograms --out experimental-prometheus-rw 10.testing-beyond-http/sql-db-k6-test.js
 ```
 
 This test generates database traffic, not HTTP traffic, so the metrics worth looking at in Explore or Drilldown Metrics are different: PostgreSQL's own (`pg_stat_statements_*`) alongside k6's [built-in metrics](https://grafana.com/docs/k6/latest/using-k6/metrics/reference/) for this run, `iterations`, `checks`, and the three scenario names.

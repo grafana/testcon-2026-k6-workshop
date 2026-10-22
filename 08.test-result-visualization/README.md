@@ -8,10 +8,10 @@ So far, you've read every result from k6's own terminal summary, printed once th
 
 k6 can stream every metric to an external backend as the test runs, instead of only summarizing at the end. This repo's Grafana stack already includes a Prometheus instance configured to receive them.
 
-Run [`k6-test.js`](./k6-test.js) with the `--out experimental-prometheus-rw` option, and `K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true` to send `http_req_duration` (and every other Trend metric) as a [Prometheus native histogram](https://prometheus.io/docs/specs/native_histograms/) instead of a handful of pre-picked percentiles:
+Run [`k6-test.js`](./k6-test.js) with the `--out experimental-prometheus-rw` option, and the `--features native-histograms` flag to send `http_req_duration` (and every other Trend metric) as a [Prometheus native histogram](https://prometheus.io/docs/specs/native_histograms/) instead of a handful of pre-picked percentiles:
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw 08.test-result-visualization/k6-test.js
+k6 run --features native-histograms --out experimental-prometheus-rw 08.test-result-visualization/k6-test.js
 ```
 
 k6 pushes every metric (`http_req_duration`, `http_reqs`, `vus`, `checks`, all of it) to Prometheus in real time over the [Prometheus remote-write protocol](https://grafana.com/docs/k6/latest/results-output/real-time/prometheus-remote-write/), rather than holding everything until the run ends.
@@ -30,13 +30,13 @@ Run the test again with the same command as above. The panels update live as k6 
 📌 Running the same test repeatedly reuses the same series, so runs blend together on the dashboard. Tag each run with a distinct `testid` to tell them apart, and run it 2 or 3 times, at least `--vus 50` for `--duration 30s`, enough concurrency and time for a stable, comparable picture on the dashboard:
 
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=run-1 --vus 50 --duration 30s 08.test-result-visualization/k6-test.js
+k6 run --features native-histograms --out experimental-prometheus-rw --tag testid=run-1 --vus 50 --duration 30s 08.test-result-visualization/k6-test.js
 ```
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=run-2 --vus 50 --duration 30s 08.test-result-visualization/k6-test.js
+k6 run --features native-histograms --out experimental-prometheus-rw --tag testid=run-2 --vus 50 --duration 30s 08.test-result-visualization/k6-test.js
 ```
 ```bash
-K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true k6 run --out experimental-prometheus-rw --tag testid=run-3 --vus 50 --duration 30s 08.test-result-visualization/k6-test.js
+k6 run --features native-histograms --out experimental-prometheus-rw --tag testid=run-3 --vus 50 --duration 30s 08.test-result-visualization/k6-test.js
 ```
 
 The dashboard's **Test ID** dropdown supports selecting one, several, or "All". Pick two or three of your runs at once and compare them side by side on the same panels. Its **Trend Metrics Query** field takes any quantile between 0 and 1 (0.5, 0.9, 0.95, 0.99, ...); type in a few different values and watch the "HTTP Request Duration" panel change, without having to re-run the test to get that quantile in the first place.
@@ -93,7 +93,7 @@ While a test is running, here are the PromQL queries behind the four numbers you
 
 > These queries use `$__rate_interval`, a Grafana-only variable that picks a sensible range for `rate()` based on the panel's time range and Prometheus's scrape interval.
 
-Paste any of these into Explore (or a new panel's query editor) while `k6-test.js` is running against Prometheus (remember to send it with `K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true` for the latency query to have data) and watch the number move in real time.
+Paste any of these into Explore (or a new panel's query editor) while `k6-test.js` is running against Prometheus (remember to run k6 with `--features native-histograms` for the latency query to have data) and watch the number move in real time.
 
 ## Related Resources
 
